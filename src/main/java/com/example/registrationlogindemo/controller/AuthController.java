@@ -32,10 +32,10 @@ public class AuthController {
         return "login";
     }
 
-//    ?@GetMapping("/home")
-//    public String homeForm() {
-//        return "index";
-//    }?
+    @GetMapping("/home")
+    public String homeForm() {
+        return "index";
+    }
 
     // handler method to handle user registration request
     @GetMapping("register")
