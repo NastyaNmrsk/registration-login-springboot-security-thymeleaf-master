@@ -2,7 +2,10 @@ package com.example.registrationlogindemo.controller;
 
 import com.example.registrationlogindemo.dto.UserDto;
 import com.example.registrationlogindemo.entity.User;
+import com.example.registrationlogindemo.service.EmailService;
 import com.example.registrationlogindemo.service.UserService;
+import com.example.registrationlogindemo.service.impl.EmailServiceImpl;
+import com.example.registrationlogindemo.util.AppConstants;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +20,11 @@ import java.util.List;
 public class AuthController {
 
     private UserService userService;
+    private EmailService emailService;
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, EmailService emailService) {
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     @GetMapping("index")
@@ -59,6 +64,8 @@ public class AuthController {
             return "register";
         }
         userService.saveUser(user);
+        //activate logic
+        emailService.sendSimpleMessage(user.getEmail(),"TEST 123", "TEST123");
         return "redirect:/register?success";
     }
 
